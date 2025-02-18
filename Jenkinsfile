@@ -13,7 +13,6 @@ pipeline {
                     MVN_CMD = params.ismvn == 'yes' ? 'mvn' : './mvnw'
                     SKIP_TESTS = params.skipptest == 'yes' ? '-DskipTests' : ''
                     MAVEN_OPTS = "-Xmx512m"
-                    MVN_THREADS = "-T0.5"
 
                     echo "Using Maven Command: ${MVN_CMD}"
                     echo "Skip Tests: ${SKIP_TESTS}"
@@ -27,7 +26,7 @@ pipeline {
         stage('Build Project') {
             steps {
                 script {
-                    sh "export MAVEN_OPTS='${MAVEN_OPTS}' && ${MVN_CMD} install -s .settings.xml ${SKIP_TESTS} ${MVN_THREADS} -am -pl :spring-cloud-dataflow-server,:spring-cloud-skipper-server,:spring-cloud-dataflow-composed-task-runner"
+                    sh "export MAVEN_OPTS='${MAVEN_OPTS}' && ${MVN_CMD} install -s .settings.xml ${SKIP_TESTS} -am -pl :spring-cloud-dataflow-server,:spring-cloud-skipper-server,:spring-cloud-dataflow-composed-task-runner"
                 }
             }
         }
