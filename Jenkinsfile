@@ -12,8 +12,8 @@ pipeline {
                 script {
                     MVN_CMD = params.ismvn == 'yes' ? 'mvn' : './mvnw'
                     SKIP_TESTS = params.skipptest == 'yes' ? '-DskipTests' : ''
-                    MAVEN_OPTS = "-Xmx512m -Xms256m"
-                    MVN_THREADS = "-T 0.5C"
+                    MAVEN_OPTS = "-Xmx512m"
+                    MVN_THREADS = "-T0.5"
 
                     echo "Using Maven Command: ${MVN_CMD}"
                     echo "Skip Tests: ${SKIP_TESTS}"
