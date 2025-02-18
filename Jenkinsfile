@@ -23,13 +23,6 @@ pipeline {
             }
         }
 
-        stage('Clone Repository') {
-            steps {
-                script {
-                    git url: 'https://github.com/spring-cloud/spring-cloud-dataflow.git', branch: 'main'
-                }
-            }
-        }
 
         stage('Build Project') {
             steps {
