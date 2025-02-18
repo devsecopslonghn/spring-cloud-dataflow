@@ -17,7 +17,6 @@ pipeline {
                     echo "Using Maven Command: ${MVN_CMD}"
                     echo "Skip Tests: ${SKIP_TESTS}"
                     echo "Maven Memory Limit: ${MAVEN_OPTS}"
-                    echo "Using Threads: ${MVN_THREADS}"
                 }
             }
         }
