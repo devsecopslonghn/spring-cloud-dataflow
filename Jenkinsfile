@@ -1,31 +1,36 @@
 pipeline {
     agent any
-
     parameters {
         choice(name: 'skipptest', choices: ['yes', 'no'], description: 'Skip tests?')
-        choice(name: 'ismvn', choices: ['yes', 'no'], description: 'Use mvn or mvnw?')
     }
 
     stages {
-        stage('Prepare Environment') {
+        stage('Build Project in Docker') {
+            agent {
+                docker {
+                    image 'maven:3.9.6-eclipse-temurin-17'
+                    args "-u root:root -v ${WORKSPACE}:/workspace -v /root/.m2:/root/.m2"
+                }
+            }
             steps {
                 script {
-                    MVN_CMD = params.ismvn == 'yes' ? 'mvn' : './mvnw'
-                    SKIP_TESTS = params.skipptest == 'yes' ? '-DskipTests' : ''
-                    MAVEN_OPTS = "-Xmx512m"
+                    def skipTests = params.skipptest == 'yes' ? '-DskipTests' : ''
 
-                    echo "Using Maven Command: ${MVN_CMD}"
-                    echo "Skip Tests: ${SKIP_TESTS}"
-                    echo "Maven Memory Limit: ${MAVEN_OPTS}"
+                    // Kiểm tra xem thư mục workspace có chứa mã nguồn không
+                    sh "echo '📂 Checking mounted files in container:'"
+                    sh "ls -lah /workspace"
+
+                    // Chạy Maven bên trong thư mục `/workspace`
+                    sh "cd /workspace && mvn install -s .settings.xml ${skipTests} -am -pl :spring-cloud-dataflow-server,:spring-cloud-dataflow-composed-task-runner"
                 }
             }
         }
 
-
-        stage('Build Project') {
+        stage('Build Docker Image') {
             steps {
                 script {
-                    sh "export MAVEN_OPTS='${MAVEN_OPTS}' && ${MVN_CMD} install -s .settings.xml ${SKIP_TESTS} -am -pl :spring-cloud-dataflow-server,:spring-cloud-skipper-server,:spring-cloud-dataflow-composed-task-runner"
+                    // sh "docker build -t my-app:latest ."
+                    sh"docker ps"
                 }
             }
         }
@@ -33,14 +38,12 @@ pipeline {
 
     post {
         success {
-            echo '✅ Build completed successfully!'
-        }
-        failure {
-            echo '❌ Build failed. Check the logs for details.'
-        }
-        always {
-            echo "🧹 Cleaning up workspace..."
+            echo '✅ Build & Docker image created successfully!'
             cleanWs()
         }
+        failure {
+            echo '❌ Build or Docker image creation failed!'
+        }
+
     }
 }
