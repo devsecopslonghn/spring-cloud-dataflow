@@ -29,8 +29,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // sh "docker build -t my-app:latest ."
-                    sh"docker ps"
+                    sh "docker build -t my-app:latest ."
                 }
             }
         }
