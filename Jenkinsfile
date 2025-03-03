@@ -29,7 +29,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t my-app:latest ."
+                    sh "cd spring-cloud-dataflow-server && docker build -t my-app:latest ."
+                    // sh "docker build -t my-app:latest ."
                 }
             }
         }
