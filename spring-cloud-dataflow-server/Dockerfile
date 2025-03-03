@@ -1,5 +1,4 @@
-ARG IMAGE_REPO
-FROM $IMAGE_REPO/bitnami/minideb:bookworm
+FROM docker.io/bitnami/minideb:bookworm
 
 ARG DOWNLOADS_URL="downloads.bitnami.com/files/stacksmith"
 ARG JAVA_EXTRA_SECURITY_DIR="/bitnami/java/extra-security"
