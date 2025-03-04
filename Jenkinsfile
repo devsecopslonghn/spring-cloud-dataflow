@@ -1,16 +1,11 @@
 pipeline {
     agent any
 
-    parameters {
-        choice(name: 'skipptest', choices: ['yes', 'no'], description: 'Skip tests?')
-    }
-
     stages {
         stage('Build Project in Docker') {
             steps {
                 script {
-                    def skipTests = params.skipptest == 'yes' ? '-DskipTests' : ''
-
+                    
                     // Kiểm tra Docker trước khi build
                     sh 'docker version'
 
@@ -21,7 +16,7 @@ pipeline {
                             ls -lah /workspace
 
                             cd /workspace 
-                            mvn install -s .settings.xml ${skipTests} -am -pl :spring-cloud-dataflow-server,:spring-cloud-dataflow-composed-task-runner
+                            mvn install -s .settings.xml -DskipTests -am -pl :spring-cloud-dataflow-server,:spring-cloud-dataflow-composed-task-runner
                         '''
                     }
                 }
