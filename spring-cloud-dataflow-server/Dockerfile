@@ -23,14 +23,14 @@ ENV HOME="/" \
 
 RUN apt-get update ; apt-get install -y dos2unix
 
-COPY ../debian-12/prebuildfs/* /
+COPY debian-12/prebuildfs/* /
 
 SHELL ["/bin/bash", "-o", "errexit", "-o", "nounset", "-o", "pipefail", "-c"]
 # Install required system packages and dependencies
 RUN dos2unix /usr/sbin/install_packages
 RUN install_packages ca-certificates curl procps zlib1g
 RUN mkdir -p /tmp/bitnami/pkg/cache
-COPY /target/*.jar /opt/bitnami/spring-cloud-dataflow/spring-cloud-dataflow.jar
+COPY target/*.jar /opt/bitnami/spring-cloud-dataflow/spring-cloud-dataflow.jar
 RUN cd /tmp/bitnami/pkg/cache/ ; \
     COMPONENTS=( \
       "yq-4.44.6-0-linux-${OS_ARCH}-debian-12" \
@@ -51,7 +51,7 @@ RUN apt-get autoremove --purge -y curl && \
 RUN chmod g+rwX /opt/bitnami
 RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
 
-COPY ../debian-12/rootfs/* /
+COPY debian-12/rootfs/* /
 
 RUN find /opt/bitnami/scripts -type f -exec dos2unix {} \;
 RUN cd opt/bitnami/scripts/spring-cloud-dataflow
