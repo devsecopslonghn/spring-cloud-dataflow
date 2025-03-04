@@ -1,17 +1,17 @@
 pipeline {
-    agent any
+    agent {
+                docker {
+                    image 'maven:3.9.6-eclipse-temurin-17'
+                    args "-u root:root -v ${WORKSPACE}:/workspace -v /root/.m2:/root/.m2"
+                }
+            }
     parameters {
         choice(name: 'skipptest', choices: ['yes', 'no'], description: 'Skip tests?')
     }
 
     stages {
         stage('Build Project in Docker') {
-            agent {
-                docker {
-                    image 'maven:3.9.6-eclipse-temurin-17'
-                    args "-u root:root -v ${WORKSPACE}:/workspace -v /root/.m2:/root/.m2"
-                }
-            }
+            
             steps {
                 script {
                     def skipTests = params.skipptest == 'yes' ? '-DskipTests' : ''
