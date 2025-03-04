@@ -23,7 +23,7 @@ ENV HOME="/" \
 
 RUN apt-get update ; apt-get install -y dos2unix
 
-COPY ../debian-12/prebuildfs /
+COPY ../debian-12/prebuildfs/* /
 
 SHELL ["/bin/bash", "-o", "errexit", "-o", "nounset", "-o", "pipefail", "-c"]
 # Install required system packages and dependencies
@@ -51,7 +51,7 @@ RUN apt-get autoremove --purge -y curl && \
 RUN chmod g+rwX /opt/bitnami
 RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
 
-COPY ../debian-12/rootfs /
+COPY ../debian-12/rootfs/* /
 
 RUN find /opt/bitnami/scripts -type f -exec dos2unix {} \;
 RUN cd opt/bitnami/scripts/spring-cloud-dataflow
