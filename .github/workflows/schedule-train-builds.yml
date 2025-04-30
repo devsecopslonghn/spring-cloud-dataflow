@@ -2,8 +2,6 @@ name: Schedule Snapshot Train Builds
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 2 * * 1,2,3,4,5'
 
 jobs:
   schedule:

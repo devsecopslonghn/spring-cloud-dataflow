@@ -4,7 +4,10 @@
   </a>
 </p>
 
-[![Build Status - CI](https://github.com/spring-cloud/spring-cloud-dataflow/actions/workflows/ci.yml/badge.svg)](https://github.com/spring-cloud/spring-cloud-dataflow/actions/workflows/ci.yml)
+# Spring Cloud Data Flow is no longer maintained as an open-source project by Broadcom, Inc.
+
+## For information about extended support or commercial options for Spring Cloud Data Flow, please read the official blog post [here](https://spring.io/blog/2025/04/21/spring-cloud-data-flow-commercial).
+
 
 
 *Spring Cloud Data Flow* is a microservices-based toolkit for building streaming and batch data processing pipelines in
