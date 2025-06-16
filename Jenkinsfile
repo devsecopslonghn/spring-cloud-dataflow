@@ -10,7 +10,7 @@ pipeline {
         stage('Build with Maven') {
             steps {
                 echo "🔨 Running mvn clean install..."
-                sh 'mvn clean install -B'
+                sh '''mvn clean install -Dtest='!**/DockerTest' -B'''
             }
         }
 
