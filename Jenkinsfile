@@ -1,11 +1,5 @@
 pipeline {
     agent any
-
-    // (Tuỳ chọn) Cấu hình Maven/JDK nếu bạn đã khai báo tool trong Jenkins
-    tools {
-        jdk    'jdk21'   // tên JDK bạn đã cấu hình
-    }
-
     stages {
         stage('Checkout') {
             steps {
