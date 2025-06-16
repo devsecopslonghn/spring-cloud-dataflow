@@ -10,7 +10,9 @@ pipeline {
         stage('Build with Maven') {
             steps {
                 echo "🔨 Running mvn clean install..."
-                sh "mvn clean install -B -pl \\!spring-cloud-dataflow-common-test-docker-junit5 -am"
+                mvn clean install -B \
+                  -pl '!org.springframework.cloud:spring-cloud-dataflow-common-test-docker-junit5' \
+                  -am
             }
         }
 
