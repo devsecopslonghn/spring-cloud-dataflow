@@ -3,7 +3,6 @@ pipeline {
 
     // (Tuỳ chọn) Cấu hình Maven/JDK nếu bạn đã khai báo tool trong Jenkins
     tools {
-        maven 'mvn'   // tên tool Maven trong Manage Jenkins → Global Tool Configuration
         jdk    'jdk21'   // tên JDK bạn đã cấu hình
     }
 
